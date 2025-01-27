@@ -3,12 +3,16 @@ import styled from 'styled-components'
 export const HeaderContainer = styled.header`
     position: fixed;
     top: 0;
+
+    z-index: 1000;
     
     height: 6.5rem;
     width: 100vw;
 
+    background-color: ${props => props.theme.background};
+
     nav {
-        width: 64rem;
+        width: 75rem;
         height: 100%;
         margin: 0 auto;
 
