@@ -51,3 +51,10 @@ export const CoffeeSection = styled.section`
         font-weight: 800;
     }
 `
+
+export const CoffeeContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 8rem;
+`
