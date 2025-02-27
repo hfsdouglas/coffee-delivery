@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "npx json-server db.json",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },
