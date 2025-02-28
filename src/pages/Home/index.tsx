@@ -1,4 +1,5 @@
 import {
+  CoffeeContainer,
   CoffeeSection,
   IntroContainer,
   IntroItemsContainer,
@@ -8,8 +9,33 @@ import {
 
 import CoffeeImg from "../../assets/coffee.svg";
 import { IntroItem } from "../../components/IntroItem";
+import { Coffee } from "../../components/Coffee";
+import { useEffect, useState } from "react";
+import { api } from "../../lib/api";
+
+type ICoffees = {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  type: string[];
+  price: number;
+}[];
 
 export function Home() {
+  const [coffees, setCoffees] = useState<ICoffees>();
+
+  useEffect(() => {
+    (async () => {
+      const response = await api.get("/coffees");
+      setCoffees(response.data);
+    })();
+  }, []);
+
+  if (!coffees) {
+    return <div>carregando...</div>;
+  }
+
   return (
     <main>
       <IntroSection>
@@ -35,6 +61,12 @@ export function Home() {
 
       <CoffeeSection>
         <h2>Nossos cafés</h2>
+
+        <CoffeeContainer>
+          {coffees.map((coffee) => {
+            return <Coffee key={coffee.id} data={coffee} />;
+          })}
+        </CoffeeContainer>
       </CoffeeSection>
     </main>
   );

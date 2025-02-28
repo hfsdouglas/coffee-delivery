@@ -56,5 +56,7 @@ export const CoffeeContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 8rem;
+    gap: 2rem;
+
+    margin: 3rem 0;
 `
