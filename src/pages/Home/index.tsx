@@ -12,6 +12,7 @@ import { IntroItem } from "../../components/IntroItem";
 import { Coffee } from "../../components/Coffee";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
+import { CoffeeSkeleton } from "../../components/CoffeeSkeleton";
 
 type ICoffees = {
   id: string;
@@ -31,10 +32,6 @@ export function Home() {
       setCoffees(response.data);
     })();
   }, []);
-
-  if (!coffees) {
-    return <div>carregando...</div>;
-  }
 
   return (
     <main>
@@ -63,9 +60,13 @@ export function Home() {
         <h2>Nossos cafés</h2>
 
         <CoffeeContainer>
-          {coffees.map((coffee) => {
-            return <Coffee key={coffee.id} data={coffee} />;
-          })}
+          {coffees && coffees.length > 0 ? (
+            coffees.map((coffee) => {
+              return <Coffee key={coffee.id} data={coffee} />;
+            })
+          ) : (
+            <CoffeeSkeleton />
+          )}
         </CoffeeContainer>
       </CoffeeSection>
     </main>
