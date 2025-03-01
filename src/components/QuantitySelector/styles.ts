@@ -4,6 +4,8 @@ export const QuantitySelectiorContainer = styled.div`
     display: flex;
     flex-direction: row;
 
+    height: 32px;
+
     :focus {
         outline: 0;
         box-shadow: 0 0 0;
