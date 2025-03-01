@@ -5,11 +5,9 @@ import {
   MapPinLine,
   Money,
 } from "@phosphor-icons/react";
-import { QuantitySelector } from "../../components/QuantitySelector";
 import {
   CardHeader,
   CheckoutForm,
-  CoffeesCard,
   FormCard,
   FormContainer,
   Input,
@@ -17,8 +15,12 @@ import {
   RadioCardIndicator,
   RadioCardItem,
   Table,
+  TotalContainer,
+  PaymentButton,
+  CoffeesContainer,
 } from "./styles";
 import { useTheme } from "styled-components";
+import { CoffeeCard } from "../../components/CoffeeCard";
 
 export function Checkout() {
   const theme = useTheme();
@@ -133,40 +135,30 @@ export function Checkout() {
       <FormContainer>
         <h3>Cafés selecionados</h3>
 
-        <CoffeesCard>
+        <CoffeesContainer>
           <main>
-            <section>
-              <img src="" alt="" />
-
-              <div>
-                <h4>Expresso Tradicional</h4>
-                <div>
-                  <QuantitySelector />
-                  <button type="button">Remover</button>
-                </div>
-              </div>
-            </section>
+            <CoffeeCard />
           </main>
 
           <footer>
-            <div>
+            <TotalContainer>
               <span>Total de itens</span>
               <span>R$ 29,70</span>
-            </div>
+            </TotalContainer>
 
-            <div>
+            <TotalContainer>
               <span>Entrega</span>
               <span>R$ 3,50</span>
-            </div>
+            </TotalContainer>
 
-            <div>
+            <TotalContainer>
               <strong>Total</strong>
               <strong>R$ 33,20</strong>
-            </div>
+            </TotalContainer>
 
-            <button type="submit">CONFIRMAR PEDIDO</button>
+            <PaymentButton type="submit">CONFIRMAR PEDIDO</PaymentButton>
           </footer>
-        </CoffeesCard>
+        </CoffeesContainer>
       </FormContainer>
     </CheckoutForm>
   );
