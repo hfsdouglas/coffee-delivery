@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const CheckoutForm = styled.form`
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 450px;
     gap: 2rem;
 `
 
@@ -28,7 +28,7 @@ export const FormCard = styled.section`
     padding: 2.5rem;
 `
 
-export const CoffeesCard = styled.div`
+export const CoffeesContainer = styled.div`
     background-color: ${props => props.theme['base-card']};
 
     border-radius: 6px;
@@ -36,6 +36,12 @@ export const CoffeesCard = styled.div`
     border-bottom-left-radius: 36px;
 
     padding: 2.5rem;
+
+    footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 `
 
 export const CardHeader = styled.header`
@@ -88,6 +94,8 @@ export const RadioCardItem = styled(RadioGroup.Item)`
     border-radius: 6px;
 
     background-color: ${props => props.theme['base-button']};
+
+    cursor: pointer;
     
     [data-state = "checked"]{
         background-color: ${props => props.theme['purple-light']};
@@ -143,4 +151,37 @@ export const Input = styled.input`
     &::placeholder {
         color: ${props => props.theme['base-label']};
     }
+`
+
+export const TotalContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        font-size: 0.875rem;
+        color: ${props => props.theme['base-text']};
+    }
+
+    strong {
+        font-size: 1.25rem;
+        color: ${props => props.theme['base-text']};
+    }
+`
+
+export const PaymentButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: ${props => props.theme['yellow']};
+    color: ${props => props.theme.white};
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    cursor: pointer;
 `
