@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CartButton } from "../CartButton";
 import { QuantitySelector } from "../QuantitySelector";
 import {
@@ -20,6 +21,8 @@ interface CoffeeProps {
 
 export function CoffeeCard({ data }: CoffeeProps) {
   const { name, image, description, type, price } = data;
+
+  const [quantity, setQuantity] = useState<number>(1);
 
   return (
     <CoffeeContainer>
@@ -46,7 +49,7 @@ export function CoffeeCard({ data }: CoffeeProps) {
           </strong>
         </PriceContainer>
 
-        <QuantitySelector />
+        <QuantitySelector fn={setQuantity} value={quantity} />
 
         <CartButton />
       </CartContainer>
