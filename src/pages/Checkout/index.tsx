@@ -5,6 +5,9 @@ import {
   MapPinLine,
   Money,
 } from "@phosphor-icons/react";
+
+import { CoffeeCheckoutItem } from "../../components/CoffeeCheckoutItem";
+
 import {
   CardHeader,
   CheckoutForm,
@@ -19,8 +22,8 @@ import {
   PaymentButton,
   CoffeesContainer,
 } from "./styles";
+
 import { useTheme } from "styled-components";
-import { CoffeeCard } from "../../components/CoffeeCard";
 
 export function Checkout() {
   const theme = useTheme();
@@ -137,7 +140,7 @@ export function Checkout() {
 
         <CoffeesContainer>
           <main>
-            <CoffeeCard />
+            <CoffeeCheckoutItem />
           </main>
 
           <footer>

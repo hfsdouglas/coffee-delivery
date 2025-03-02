@@ -9,7 +9,7 @@ import {
 
 import CoffeeImg from "../../assets/coffee.svg";
 import { IntroItem } from "../../components/IntroItem";
-import { Coffee } from "../../components/Coffee";
+import { CoffeeCard } from "../../components/CoffeeCard";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
 import { CoffeeSkeleton } from "../../components/CoffeeSkeleton";
@@ -62,7 +62,7 @@ export function Home() {
         <CoffeeContainer>
           {coffees && coffees.length > 0 ? (
             coffees.map((coffee) => {
-              return <Coffee key={coffee.id} data={coffee} />;
+              return <CoffeeCard key={coffee.id} data={coffee} />;
             })
           ) : (
             <CoffeeSkeleton />

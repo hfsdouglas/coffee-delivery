@@ -1,44 +1,55 @@
-import { useTheme } from "styled-components";
-import { Trash } from "@phosphor-icons/react";
-
+import { CartButton } from "../CartButton";
 import { QuantitySelector } from "../QuantitySelector";
-
 import {
-  ButtonsContainer,
-  CoffeeBox,
-  CoffeeInfo,
-  CoffeePrice,
-  RemoveButton,
-  Separator,
+  CartContainer,
   CoffeeContainer,
+  LabelsContainer,
+  PriceContainer,
 } from "./styles";
 
-export function CoffeeCard() {
-  const theme = useTheme();
+interface CoffeeProps {
+  data: {
+    id: string;
+    name: string;
+    image: string;
+    description: string;
+    type: string[];
+    price: number;
+  };
+}
+
+export function CoffeeCard({ data }: CoffeeProps) {
+  const { name, image, description, type, price } = data;
 
   return (
-    <>
-      <CoffeeContainer>
-        <CoffeeBox>
-          <img src="./images/americano.png" alt="" />
+    <CoffeeContainer>
+      <img src={image} alt="" />
 
-          <CoffeeInfo>
-            <h4>Expresso Tradicional</h4>
+      <LabelsContainer>
+        {type.map((label) => {
+          return <span key={label}>{label.toLocaleUpperCase()}</span>;
+        })}
+      </LabelsContainer>
 
-            <ButtonsContainer>
-              <QuantitySelector />
-              <RemoveButton type="button">
-                <Trash color={theme.purple} />
-                <span>REMOVER</span>
-              </RemoveButton>
-            </ButtonsContainer>
-          </CoffeeInfo>
-        </CoffeeBox>
+      <h3>{name}</h3>
 
-        <CoffeePrice>R$ 9,90</CoffeePrice>
-      </CoffeeContainer>
+      <p>{description}</p>
 
-      <Separator />
-    </>
+      <CartContainer>
+        <PriceContainer>
+          <span>R$</span>
+          <strong>
+            {new Intl.NumberFormat("pt-BR", {
+              currency: "BRL",
+              minimumFractionDigits: 2,
+            }).format(price / 100)}
+          </strong>
+        </PriceContainer>
+
+        <QuantitySelector />
+
+        <CartButton />
+      </CartContainer>
+    </CoffeeContainer>
   );
 }
