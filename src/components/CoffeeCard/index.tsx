@@ -20,7 +20,7 @@ interface CoffeeProps {
 }
 
 export function CoffeeCard({ data }: CoffeeProps) {
-  const { name, image, description, type, price } = data;
+  const { id, name, image, description, type, price } = data;
 
   const [quantity, setQuantity] = useState<number>(1);
 
