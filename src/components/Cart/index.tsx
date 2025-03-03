@@ -11,7 +11,7 @@ export function Cart() {
 
   return (
     <ButtonContainer to="/checkout">
-      {volumes > 1 && <span>{volumes}</span>}
+      {volumes > 0 && <span>{volumes}</span>}
 
       <ShoppingCartSimple
         size={22}
