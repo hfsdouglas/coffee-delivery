@@ -4,7 +4,7 @@ interface CartProviderProps {
   children: ReactNode;
 }
 
-interface Coffee {
+export interface Coffee {
   id: string;
   name: string;
   image: string;
