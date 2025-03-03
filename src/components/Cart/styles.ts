@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled(Link)`
     position: relative;
     background-color: ${props => props.theme['yellow-light']};
     padding: 0.5rem;
