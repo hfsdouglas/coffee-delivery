@@ -27,6 +27,7 @@ interface CartContextType {
   addCoffee: (value: Coffee) => void;
   removeCoffee: (value: Coffee) => void;
   deleteCoffee: (value: Coffee) => void;
+  resetCart: () => void;
 }
 
 export const CartContext = createContext({} as CartContextType);
@@ -88,6 +89,12 @@ export function reducer(state: CoffeeState, action: any) {
       };
     }
 
+    case "RESET_CART": {
+      return {
+        coffees: [],
+      };
+    }
+
     default:
       return state;
   }
@@ -130,6 +137,10 @@ export function CartProvider({ children }: CartProviderProps) {
     dispatch({ type: "DELETE_COFFEE", payload: coffee });
   }
 
+  function resetCart() {
+    dispatch({ type: "RESET_CART" });
+  }
+
   const volumes = coffees.reduce((total, coffee) => total + coffee.quantity, 0);
 
   const subtotal = coffees.reduce(
@@ -152,6 +163,7 @@ export function CartProvider({ children }: CartProviderProps) {
         addCoffee,
         removeCoffee,
         deleteCoffee,
+        resetCart,
       }}
     >
       {children}
