@@ -98,3 +98,13 @@ export const OrderInfoIcon = styled.span<OrderInfoIconProps>`
 
     color: ${props => props.theme.white};
 `
+
+export const LoadingContainer = styled.main`
+  height: calc(100vh - 6.5rem);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center
+`
