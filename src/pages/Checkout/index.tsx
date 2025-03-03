@@ -24,9 +24,16 @@ import {
 } from "./styles";
 
 import { useTheme } from "styled-components";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 export function Checkout() {
   const theme = useTheme();
+  const { coffees } = useContext(CartContext);
+
+  const subtotal = coffees.reduce((total, coffee) => total + coffee.price, 0);
+  const frete = 3.5;
+  const total = subtotal / 100 + frete;
 
   return (
     <CheckoutForm>
@@ -140,23 +147,40 @@ export function Checkout() {
 
         <CoffeesContainer>
           <main>
-            <CoffeeCheckoutItem />
+            {coffees.map((coffee) => (
+              <CoffeeCheckoutItem data={coffee} key={coffee.id} />
+            ))}
           </main>
 
           <footer>
             <TotalContainer>
               <span>Total de itens</span>
-              <span>R$ 29,70</span>
+              <span>
+                {new Intl.NumberFormat("pt-BR", {
+                  currency: "BRL",
+                  style: "currency",
+                }).format(subtotal / 100)}
+              </span>
             </TotalContainer>
 
             <TotalContainer>
               <span>Entrega</span>
-              <span>R$ 3,50</span>
+              <span>
+                {new Intl.NumberFormat("pt-BR", {
+                  currency: "BRL",
+                  style: "currency",
+                }).format(frete)}
+              </span>
             </TotalContainer>
 
             <TotalContainer>
               <strong>Total</strong>
-              <strong>R$ 33,20</strong>
+              <strong>
+                {new Intl.NumberFormat("pt-BR", {
+                  currency: "BRL",
+                  style: "currency",
+                }).format(total)}
+              </strong>
             </TotalContainer>
 
             <PaymentButton type="submit">CONFIRMAR PEDIDO</PaymentButton>
