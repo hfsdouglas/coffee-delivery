@@ -13,21 +13,34 @@ import {
   CoffeeContainer,
 } from "./styles";
 
-export function CoffeeCheckoutItem() {
+import { CartContext, type Coffee } from "../../contexts/CartContext";
+import { useContext } from "react";
+
+interface CoffeeCheckoutItemProps {
+  data: Coffee;
+}
+
+export function CoffeeCheckoutItem({ data }: CoffeeCheckoutItemProps) {
   const theme = useTheme();
+  const { addCoffee, deleteCoffee, removeCoffee } = useContext(CartContext);
+
+  function handleRemoveButtonClick() {
+    deleteCoffee(data);
+  }
 
   return (
     <>
       <CoffeeContainer>
         <CoffeeBox>
-          <img src="./images/americano.png" alt="" />
+          <img src={data.image} alt="" />
 
           <CoffeeInfo>
-            <h4>Expresso Tradicional</h4>
+            <h4>{data.name}</h4>
 
             <ButtonsContainer>
               <QuantitySelector />
-              <RemoveButton type="button">
+
+              <RemoveButton type="button" onClick={handleRemoveButtonClick}>
                 <Trash color={theme.purple} />
                 <span>REMOVER</span>
               </RemoveButton>
@@ -35,7 +48,12 @@ export function CoffeeCheckoutItem() {
           </CoffeeInfo>
         </CoffeeBox>
 
-        <CoffeePrice>R$ 9,90</CoffeePrice>
+        <CoffeePrice>
+          {new Intl.NumberFormat("pt-BR", {
+            currency: "BRL",
+            style: "currency",
+          }).format(data.price / 100)}
+        </CoffeePrice>
       </CoffeeContainer>
 
       <Separator />
