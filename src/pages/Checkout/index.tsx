@@ -29,11 +29,7 @@ import { CartContext } from "../../contexts/CartContext";
 
 export function Checkout() {
   const theme = useTheme();
-  const { coffees } = useContext(CartContext);
-
-  const subtotal = coffees.reduce((total, coffee) => total + coffee.price, 0);
-  const frete = 3.5;
-  const total = subtotal / 100 + frete;
+  const { coffees, subtotal, frete, total } = useContext(CartContext);
 
   return (
     <CheckoutForm>
@@ -169,7 +165,7 @@ export function Checkout() {
                 {new Intl.NumberFormat("pt-BR", {
                   currency: "BRL",
                   style: "currency",
-                }).format(frete)}
+                }).format(frete / 100)}
               </span>
             </TotalContainer>
 
@@ -179,7 +175,7 @@ export function Checkout() {
                 {new Intl.NumberFormat("pt-BR", {
                   currency: "BRL",
                   style: "currency",
-                }).format(total)}
+                }).format(total / 100)}
               </strong>
             </TotalContainer>
 

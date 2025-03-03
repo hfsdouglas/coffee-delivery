@@ -21,6 +21,9 @@ interface CoffeeState {
 interface CartContextType {
   coffees: Coffee[];
   volumes: number;
+  subtotal: number;
+  frete: number;
+  total: number;
   addCoffee: (value: Coffee) => void;
   removeCoffee: (value: Coffee) => void;
   deleteCoffee: (value: Coffee) => void;
@@ -129,9 +132,27 @@ export function CartProvider({ children }: CartProviderProps) {
 
   const volumes = coffees.reduce((total, coffee) => total + coffee.quantity, 0);
 
+  const subtotal = coffees.reduce(
+    (total, coffee) => total + coffee.price * coffee.quantity,
+    0
+  );
+  const frete = 350;
+  const total = subtotal + frete;
+
+  console.log(coffees);
+
   return (
     <CartContext.Provider
-      value={{ coffees, volumes, addCoffee, removeCoffee, deleteCoffee }}
+      value={{
+        coffees,
+        volumes,
+        subtotal,
+        frete,
+        total,
+        addCoffee,
+        removeCoffee,
+        deleteCoffee,
+      }}
     >
       {children}
     </CartContext.Provider>
