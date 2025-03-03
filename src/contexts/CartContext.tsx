@@ -1,6 +1,8 @@
-import { createContext, useReducer } from "react";
+import { createContext, type ReactNode, useEffect, useReducer } from "react";
 
-export const CartContext = createContext({});
+interface CartProviderProps {
+  children: ReactNode;
+}
 
 interface Coffee {
   id: string;
@@ -16,22 +18,81 @@ interface CoffeeState {
   coffees: Coffee[];
 }
 
+interface CartContextType {
+  coffees: Coffee[];
+  addCoffee: (value: Coffee) => void;
+  removeCoffee: (value: Coffee) => void;
+  deleteCoffee: (value: Coffee) => void;
+}
+
+export const CartContext = createContext({} as CartContextType);
+
 //biome-ignore lint/suspicious/noExplicitAny: <Any foi utilizado intencionalmente>
 export function reducer(state: CoffeeState, action: any) {
   switch (action.type) {
-    case "ADD_COFFEE":
-    // TODO: find if the coffee exists and add quantity to it, otherwise it must be added
-    case "REMOVE_COFFEE":
-    // TODO: find the coffee and remove quantity, if it has only one item it must be remove completely
+    case "ADD_COFFEE": {
+      const coffeeExists = state.coffees.find(
+        (coffee) => coffee.id === action.payload.id
+      );
+
+      if (coffeeExists) {
+        return {
+          ...state,
+          coffees: state.coffees.map((coffee) => {
+            if (coffee.id === action.payload.id) {
+              return {
+                ...coffee,
+                quantity: coffee.quantity + 1,
+              };
+            }
+
+            return coffee;
+          }),
+        };
+      }
+
+      return {
+        ...state,
+        coffees: [...state.coffees, action.payload],
+      };
+    }
+
+    case "REMOVE_COFFEE": {
+      return {
+        ...state,
+        coffees: state.coffees
+          .map((coffee) => {
+            if (coffee.id === action.payload.id) {
+              return {
+                ...coffee,
+                quantity: coffee.quantity - 1,
+              };
+            }
+
+            return coffee;
+          })
+          .filter((coffee) => coffee.quantity > 0),
+      };
+    }
+
+    case "DELETE_COFFEE": {
+      return {
+        ...state,
+        coffees: state.coffees.filter(
+          (coffee) => coffee.id !== action.payload.id
+        ),
+      };
+    }
+
     default:
       return state;
   }
 }
 
-export function CartProvider() {
+export function CartProvider({ children }: CartProviderProps) {
   const [coffeeState, dispatch] = useReducer(
     reducer,
-    { coffees: [] },
+    { coffees: [] } as CoffeeState,
     (initialState) => {
       const storedStateAsJSON = localStorage.getItem(
         "@coffee-delivery:coffees-state-1.0.0"
@@ -43,5 +104,33 @@ export function CartProvider() {
 
       return initialState;
     }
+  );
+
+  const { coffees } = coffeeState;
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(coffeeState);
+
+    localStorage.setItem("@coffee-delivery:coffees-state-1.0.0", stateJSON);
+  }, [coffeeState]);
+
+  function addCoffee(coffee: Coffee) {
+    dispatch({ type: "ADD_COFFEE", payload: coffee });
+  }
+
+  function removeCoffee(coffee: Coffee) {
+    dispatch({ type: "REMOVE_COFFEE", payload: coffee });
+  }
+
+  function deleteCoffee(coffee: Coffee) {
+    dispatch({ type: "DELETE_COFFEE", payload: coffee });
+  }
+
+  return (
+    <CartContext.Provider
+      value={{ coffees, addCoffee, removeCoffee, deleteCoffee }}
+    >
+      {children}
+    </CartContext.Provider>
   );
 }
