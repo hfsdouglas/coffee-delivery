@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CartButton } from "../CartButton";
 import { QuantitySelector } from "../QuantitySelector";
 import {
@@ -7,6 +7,7 @@ import {
   LabelsContainer,
   PriceContainer,
 } from "./styles";
+import { CartContext } from "../../contexts/CartContext";
 
 interface CoffeeProps {
   data: {
@@ -20,9 +21,17 @@ interface CoffeeProps {
 }
 
 export function CoffeeCard({ data }: CoffeeProps) {
+  const { addCoffee } = useContext(CartContext);
+
   const { id, name, image, description, type, price } = data;
 
   const [quantity, setQuantity] = useState<number>(1);
+
+  function handleCartButtonClick() {
+    const coffee = { id, name, image, description, type, price, quantity };
+
+    addCoffee(coffee);
+  }
 
   return (
     <CoffeeContainer>
@@ -51,7 +60,7 @@ export function CoffeeCard({ data }: CoffeeProps) {
 
         <QuantitySelector fn={setQuantity} value={quantity} />
 
-        <CartButton />
+        <CartButton onClick={handleCartButtonClick} />
       </CartContainer>
     </CoffeeContainer>
   );
