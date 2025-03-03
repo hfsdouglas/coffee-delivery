@@ -42,6 +42,10 @@ export const CoffeesContainer = styled.div`
         flex-direction: column;
         gap: 0.75rem;
     }
+
+    p{
+        text-align: center;
+    }
 `
 
 export const CardHeader = styled.header`

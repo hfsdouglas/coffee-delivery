@@ -61,8 +61,8 @@ export function Checkout() {
       numero: undefined,
       complemento: "",
       bairro: "",
-      cidade: "",
-      uf: "",
+      cidade: "Córrego Fundo",
+      uf: "MG",
       pagamento: undefined,
     },
   });
@@ -81,6 +81,9 @@ export function Checkout() {
           state: data.uf,
         },
         payment: data.pagamento,
+        subtotal,
+        frete,
+        total,
       });
 
       const { id } = response.data;
