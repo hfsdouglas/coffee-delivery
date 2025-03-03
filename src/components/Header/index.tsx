@@ -4,6 +4,7 @@ import { HeaderContainer, LocationContainer } from "./styles";
 import logoImg from "../../assets/logo.png";
 import { useTheme } from "styled-components";
 import { Cart } from "../Cart";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const theme = useTheme();
@@ -11,7 +12,9 @@ export function Header() {
   return (
     <HeaderContainer>
       <nav>
-        <img src={logoImg} alt="" height={40} width={"auto"} />
+        <Link to="/" id="logo">
+          <img src={logoImg} alt="" height={40} width={"auto"} />
+        </Link>
 
         <LocationContainer>
           <div>

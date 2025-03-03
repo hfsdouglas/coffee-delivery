@@ -20,6 +20,10 @@ export const HeaderContainer = styled.header`
         justify-content: space-between;
         align-items: center;
     }
+
+    & #logo:focus {
+        box-shadow: none;
+    }
 `
 
 export const LocationContainer = styled.div`
