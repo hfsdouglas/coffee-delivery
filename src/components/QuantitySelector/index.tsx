@@ -28,7 +28,11 @@ export function QuantitySelector({ value, fn }: QuantitySelectorProps) {
         <Minus size={14} color={theme.purple} />
       </button>
 
-      <input type="text" value={value} />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => fn(Number(e.target.value))}
+      />
 
       <button type="button" onClick={add}>
         <Plus size={14} color={theme.purple} />
