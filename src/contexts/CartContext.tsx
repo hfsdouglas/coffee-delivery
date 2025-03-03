@@ -20,6 +20,7 @@ interface CoffeeState {
 
 interface CartContextType {
   coffees: Coffee[];
+  volumes: number;
   addCoffee: (value: Coffee) => void;
   removeCoffee: (value: Coffee) => void;
   deleteCoffee: (value: Coffee) => void;
@@ -126,9 +127,11 @@ export function CartProvider({ children }: CartProviderProps) {
     dispatch({ type: "DELETE_COFFEE", payload: coffee });
   }
 
+  const volumes = coffees.reduce((total, coffee) => total + coffee.quantity, 0);
+
   return (
     <CartContext.Provider
-      value={{ coffees, addCoffee, removeCoffee, deleteCoffee }}
+      value={{ coffees, volumes, addCoffee, removeCoffee, deleteCoffee }}
     >
       {children}
     </CartContext.Provider>
